@@ -2,12 +2,18 @@ const express = require('express');
 const path = require('path');
 const methodOverride = require('method-override');
 const cors = require("cors");
+// Routes
+//Aquí llamo a la ruta de la api de characters
+const charactersRouter = require('./routes/characters');
+//Aquí llamo a la ruta de la api de movies
+// const moviesRouter = require('./routes/movies');
+//Aquí llamo a la ruta de la api de users
+// const usersRouter = require('./routes/users');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-
-var corsOptions = {
+const corsOptions = {
   origin: "*"
 };
 
@@ -20,14 +26,15 @@ let allowCrossDomain = function(req, res, next) {
     next();
   }
 app.use(allowCrossDomain);
-app.use(express.urlencoded({ extended: false })); // URL Parser
-app.use(express.json()); // JSON Parser
-//Aquí estoy disponiendo la posibilidad para utilizar el seteo en los formularios para el usod e los metodos put ó delete
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+//Aquí estoy disponiendo la posibilidad para utilizar el seteo en los formularios para el uso de los metodos PUT ó DELETE
 app.use(methodOverride('_method'));
 app.use(express.static(path.resolve(__dirname, '../public')));
 
-
-app.use('/', (req, res) => res.send('Server config ok'))
+app.use('/characters', charactersRouter);
+// app.use('/movies', moviesRouter);
+// app.use('/auth', usersRouter);
 
 //Activando el servidor desde express
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
