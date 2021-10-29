@@ -28,6 +28,10 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.DATEONLY,
       allowNull: false,
     },
+    age: {
+      type: dataTypes.BIGINT(10).UNSIGNED,
+      allowNull: false,
+    },
     movie_id: {
       type: dataTypes.BIGINT(10).UNSIGNED,
       allowNull: false,
